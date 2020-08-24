@@ -1,0 +1,224 @@
+CompTIA Linux+
+System Operations and Maintenance
+
+2.1. Given a scenario, conduct software installations, configurations, updates, and removals.
+2.1.1 Package types
+	- .rpm
+	- .deb
+	- .tar
+	- .tgz
+	- .gz
+
+2.1.2 Installation Tools
+	- RPM
+	- Dpkg
+	- APT
+	- YUM
+	- DNF
+	- Zypper
+
+2.1.3 Build tools
+	- Commands - make
+	- make install
+	- ldd
+	- Compilers
+	- Shared Libraries
+
+2.1.4 Repositories
+	 - Configuration
+	 - Creation
+	 - Syncing
+	 - Location
+
+2.1.5 Acquisition Commands
+	- wget
+	- curl
+
+
+2.2. Given a scenario, manage users and groups.
+2.2.1 Creation
+	- useradd
+	- groupadd
+
+2.2.2 Modification
+	- usermod
+	- groupmod
+	- passwd
+	- chage
+
+2.2.3 Deletion
+	- userdel
+	- groupdel
+
+2.2.4 Queries
+	- id
+	- whoami
+	- who
+	- w
+	- last
+
+2.2.5 Quotas
+	- User quota
+	- Group quota
+
+2.2.6 Profiles
+	- Bash parameters
+	- User entries
+	- .bashrc
+	- .bash_profile
+	- .profile
+	- Global entries
+	- /etc/bashrc
+	- /etc/profile.d/
+	- /etc/skel
+	- /etc/profile
+
+2.2.7 Important Files and File Contents
+	- /etc/passwd
+	- /etc/group
+	- /etc/shadow
+
+
+2.3. Given a scenario, create, modify, and redirect files.
+2.3.1 Text editors
+	- nano
+	- vi
+
+2.3.2 File readers
+	-grep - cat
+	- tail
+	- head -less
+	- more
+
+2.3.3 Output redirection
+	-<
+	->
+	-|
+	-<<
+	->>
+	-2>
+	-&>
+	- stdin
+	- stdout
+	- stderr
+	- /dev/null
+	- /dev/tty
+	- xargs
+	- tee
+	- Here documents
+
+2.3.4 Text processing
+	- grep
+	-tr
+	- echo
+	- sort
+	- awk
+	- sed
+	- cut
+	- printf
+	- egrep
+	- wc
+	- paste
+
+2.3.5 File and directory operations
+	- touch
+	- mv
+	- cp
+	- rm
+	- scp
+	- ls
+	- rsync
+	- mkdir
+	- rmdir
+	-ln
+		- Symbolic (soft)
+		- Hard
+	- unlink
+	- inodes
+	- find
+	- locate
+	- grep
+	- which
+	- whereis
+	- diff
+	- updatedb
+
+2.4 Given a scenario, manage services.
+2.4.1 Systemd management
+	- Systemctl
+		- Enabled
+		- Disabled
+		- Start
+		- Stop
+		- Mask
+		- Restart
+		- Status
+		- Daemon-reload
+	- Systemd-analyze blame
+	- Unit files
+		- Directory locations
+		- Environment parameters
+		- Targets
+		- Hostnamectl
+		- Automount
+
+2.4.2 SysVinit
+	- chkconfig
+		- on
+		- off
+		- level
+	- Runlevels
+		- Definitions of 0–6
+		- /etc/init.d
+		- /etc/rc.d
+		- /etc/rc.local
+		- /etc/inittab
+	- Commands
+		- runlevel
+		- telinit
+	- Service
+		- Restart
+		- Status
+		- Stop
+		- Start
+		- Reload
+
+
+2.5 Summarize and explain server roles.
+	- NTP
+	- SSH
+	- Web
+	- Certificate authority
+	- Name server
+	- DHCP
+	- File servers
+	- Authentication server
+	- Proxy
+	- Logging
+	- Containers
+	- VPN
+	- Monitoring
+	- Database
+	- Print server
+	- Mail server
+	- Load balancer
+	- Clustering
+
+
+2.6 Given a scenario, automate and schedule jobs.
+	- cron
+	- at
+	- crontab
+	- fg
+	- bg
+	- &
+	- kill
+	- Ctrl-c
+	- Ctrl-z
+	- nohup
+
+
+
+
+
+

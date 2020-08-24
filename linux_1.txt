@@ -1,0 +1,219 @@
+CompTIA Linux+
+Hardware and System Configuration
+
+1.1. Explain Linux Boot Process Concepts
+https://linoxide.com/booting/boot-process-of-linux-in-detail/
+https://linoxide.com/linux-how-to/best-difference-between-linux-grub-and-grub2-bootloader/
+https://linoxide.com/linux-how-to/systemd-boot-process/
+
+1.1.1 Boot Loaders
+	Grub
+	Grub2
+
+1.1.2 Boot Options
+	- UEFI/EFI
+		UEFI (Fancier BIOS system than Legacy Boot) normally goes with GPT drive partition tables, while Legacy goes with MBR/DOS partition tables (limits to 4 actual partitions).
+	- PXE (Preboot execution environment)
+		Standard client-server environment that boots software retrieved from a network device, for a client with a PXE enabled NIC (Network interface controller - think modem cards)
+		Client devices boot from the NIC, not a local disk
+		Client Requests its IP from local DHCP server and then requests IP for boot server (TFTP server and a boot service)
+		Client Requests NBP (Network Bootstrap Program) file name and then file from boot server (.efi file - booting instructions)
+		https://www.youtube.com/watch?v=5qyTLfJrQM4
+	- NFS (Network File System)
+		NFS Server setup on server
+		NFS Client setup on clients
+		Particular directory set on NFS Server as shared through /etc/exports (see https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/5/html/deployment_guide/s1-nfs-server-config-exports)
+		That directory is then mountable on client devices (perhaps mount command needs to be placed in user .profile for mount on login)
+	- Boot from ISO
+	- Boot from HTTP/FTP
+
+1.1.3 File Locations
+	- /etc/default/grub
+	- /etc/grub2.cfg
+	- /boot
+	- /boot/grub
+	- /boot/grub2
+	- /boot/efi
+
+1.1.4 Boot Modules and Files
+	- Commands
+		- mkinitrd
+		- dracut
+		- grub2-install
+		- grub2-mkconfig
+	- initramfs
+	- efi files
+	- vmlinuz
+	- vmlinux
+
+1.1.5 Kernel Panic
+
+
+1.2. Given a scenario, install, configure, and monitor kernel modules
+
+1.2.1 Commands
+	- lsmod
+	- insmod
+	- modprobe
+	- modinfo
+	- dmesg
+	- rmmod
+	- depmod
+
+1.2.2 Locations
+	- /usr/lib/modules/[kernelversion]
+	- /usr/lib/modules
+	- /etc/modprobe.conf
+	- /etc/modprobe.d/
+
+1.3. Given a scenario, configure and verify network connection parameters
+1.3.1 Diagnostic Tools
+	- ping
+	- netstat
+	- nslookup
+	- dig
+	- host
+	- route
+	- ip
+	- ethtool
+	- ss
+	- iwconfig
+	- nmcli
+	- brctl
+	- nmtui
+
+1.3.2 Configuration Files
+	- /etc/sysconfig/network-scripts/
+	- /etc/sysconfig/network
+	- /etc/hosts
+	- /etc/network
+	- /etc/nsswitch.conf
+	- /etc/resolv.conf
+	- /etc/netplan
+	- /etc/sysctl.conf
+	- /etc/dhcp/dhclient.conf
+
+1.3.3 Bonding
+	- Aggregation
+	- Active/passive
+	- Load balancing
+
+
+1.4. Given a scenario, manage storage in a linux environment
+1.4.1 Basic Partitions
+	- Raw devices
+	- GPT
+	- MBR
+
+1.4.2 File System Hierarchy
+	- Real file systems
+	- Virtual file systems
+	- Relative paths
+	- Absolute paths
+
+1.4.3 Device Mapper
+	- LVM
+	- mdadm
+	- Multipath
+
+1.4.4 Tools
+	- XFS tools
+	- LVM tools
+	- EXT tools
+	- Commands
+	- mdadm
+	- fdisk
+	- parted
+	- mkfs
+	- iostat
+	- df
+	- du
+	- mount
+	- umount
+	- lsblk
+	- fsck
+	- tune2fs
+	- e2label
+
+1.4.5 Location
+	- /etc/fstab
+	- /etc/crypttab
+	- /dev/
+	- /dev/mapper
+	- /dev/disk/by-
+		- id
+		- uuid
+		- path
+		- multipath
+	- /etc/mtab
+	- /sys/block
+	- /proc/partitions
+	- /proc/mounts
+
+1.4.6 File System Types
+	- ext3
+	- ext4
+	- xfs
+	- nfs
+	- smb
+	- cifs
+	- ntfs
+
+1.5. Compare and contrast cloud and virtualization concepts and technologies
+1.5.1 Templates
+	- VM
+	- OVA
+	- OVF
+	- JSON
+	- YAML
+	- Container images
+
+1.5.2 Bootstrapping
+	- Cloud-init
+	- Anaconda
+	- Kickstart
+
+1.5.3 Storage
+	- Thin vs. thick provisioning
+	- Persistent volumes
+	- Blob
+	- Block
+
+1.5.4 Network Considerations
+	- Bridging
+	- Overlay networks
+	- NAT
+	- Local
+	- Dual-homed
+
+1.5.5 Types of Hypervisors
+
+1.5.6 Tools
+	- libvirt
+	- virsh
+	- vmm
+
+1.6. Given a scenario, configure localization options
+1.6.1 File Locations
+	- /etc/timezone
+	- /usr/share/zoneinfo
+
+1.6.2 Commands
+	- localectl
+	- timedatectl
+	- date
+	- hwclock
+
+1.6.3 Environment Variables
+	- LC_*
+	- LC_ALL
+	- LANG
+	- TZ
+
+1.6.4 Character Sets
+	- UTF-8
+	- ASCII
+	- Unicode
+
+
+
