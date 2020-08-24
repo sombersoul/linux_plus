@@ -218,7 +218,75 @@ System Operations and Maintenance
 	- nohup
 
 
+2.7 Explain the use and operation of Linux devices.
+2.7.1 Types of devices
+	- Client devices - Bluetooth
+	- WiFi
+	- USB
+	- Monitors
+	- GPIO
+	- Network adapters - PCI
+	- HBA
+	- SATA
+	- SCSI
+	- Printers
+	- Video
+	- Audio
+
+2.7.2 Monitoring and configuration tools
+	- lsdev
+	- lsusb
+	- lspci
+	- lsblk
+	- dmesg
+	- lpr
+	- lpq
+	- abrt
+	- CUPS
+	- udevadm
+		- add
+		- reload-rules
+		- control
+		- trigger
+
+	 2.7.3 File locations
+	- /proc
+	- /sys
+	- /dev
+	- /dev/mapper
+	- /etc/X11
+
+2.7.4 Hot pluggable devices
+	- /usr/lib/udev/rules.d (System rules - Lowest priority)
+	- /run/udev/rules.d (Volatile Rules)
+	- /etc/udev/rules.d (Local Administration - Highest priority)
+	- /etc/udev/rules.d
 
 
+2.8 Compare and contrast Linux graphical user interfaces.
+2.8.1 Servers
+	- Wayland
+	- X11
 
+2.8.2 GUI
+	- Gnome
+	- Unity
+	- Cinnamon
+	- Mate
+	- KDE
+
+2.8.3 Remote desktop
+	- VNC
+	- XRDP
+	- NX
+	- Spice
+
+2.8.4 Console Redirection
+	SSH port forwarding
+	- Local
+	- Remote
+	- X11 Forwarding
+	- VNC
+
+2.8.5 Accessibility
 
