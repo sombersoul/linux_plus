@@ -11,16 +11,29 @@ System Operations and Maintenance
 
 2.1.2 Installation Tools
 	- RPM
+		Original Redhat Package Manager
 	- Dpkg
+		Debian package manager
 	- APT
+		Debian/Ubuntu package maanger front end, based on dpkg backend
 	- YUM
+		2nd Gen Redhat/CentOS package manager, based on RPM backend
 	- DNF
+		Dandified Yum; RHEL 8 and on default to DNF as the package manager
 	- Zypper
+		SUSE package manager based on RPM backend
 
 2.1.3 Build tools
-	- Commands - make
+	- Commands
+	- make
 	- make install
+		On Ubuntu (Debian?) systems, you can use checkinstall instead for ease of uninstalling using your system package manager
 	- ldd
+		Print shared object/library dependecies.
+			ldd $(which <program>) will show library depencies.  Or use abs path to binary.
+		ldconfig updates these links between libraries.  Need to learn more here.
+			For instance, after a make install, if a new shared library is installed, ldconfig needs to
+			be run to show the system that the library is now present and to be used.
 	- Compilers
 	- Shared Libraries
 
@@ -32,7 +45,11 @@ System Operations and Maintenance
 
 2.1.5 Acquisition Commands
 	- wget
+		This seems more focussed around single downloads of files/pages that are publically available.  Like a less featured curl.
+		Supports HTTP/S, FTP
 	- curl
+		curl has all the acquisition ability of wget but also with credentialing.  It can also send POST requests, so info goes 2 ways.
+		Supports large number of connection protocol (way more than wget) including SCP, IMAP, POP3, SMTP, etc.
 
 
 2.2. Given a scenario, manage users and groups.
