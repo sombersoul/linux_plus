@@ -103,6 +103,9 @@ System Operations and Maintenance
 	- Group quota
 
 2.2.6 Profiles
+	/etc/profile, .bash_profile, .profile and .bash_login are called for login shells in that order.
+		/etc/profile.d/ is a directory for application or other startup scripts that are run when /etc/profile is called.
+	/etc/bash.bashrc and .bashrc are called for no login shells in that order.
 	- Bash parameters
 	- User entries
 	- .bashrc
