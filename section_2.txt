@@ -55,13 +55,21 @@ System Operations and Maintenance
 2.2. Given a scenario, manage users and groups.
 2.2.1 Creation
 	- useradd
+		Default user settings found in /etc/default/useradd
+		useradd -D shows default settings
 	- groupadd
+
 
 2.2.2 Modification
 	- usermod
+		Allows you to modify all things that were set in the useradd
 	- groupmod
 	- passwd
+		Set or change the password for a user
 	- chage
+		Password expiration settings.
+		chage <username> to run through the settings.
+		chage <username> --list to see active settings
 
 2.2.3 Deletion
 	- userdel
@@ -69,12 +77,28 @@ System Operations and Maintenance
 
 2.2.4 Queries
 	- id
+		List out ids for current user or id <username> for other user
 	- whoami
 	- who
+		Show who is logged in
 	- w
+		Show who is logged in and what they are doing
 	- last
+		Shows the last logged in users
 
 2.2.5 Quotas
+	Limits the number of inotes or blocks that a group/user is allowed to consume within a given partition (usually the only one they have access to)
+	1. In /etc/fstab, the partition must have usrquota and/or grpquota enabled
+		fstab entries go like <device> <mount point> <filesystem> <settings> <0 or 1 for included in backup> <0 or number for order in fsck>
+		E.g. UUID=0659e7c8-a71b-47b5-b77f-e4232ceecc01 /home ext4 defaults,usrquota,grpquota 0 2
+		Note: Later steps recommend journaled quota and the arch wiki has below as example:
+			/dev/sda3 /home ext4 defaults,usrjquota=aquota.user,jqfmt=vfsv1 0 2
+	2. Reboot for fstab changes to take affect (Stackoverflow suggests sudo mount <dir> -o remount would work to reapply whatever changes made to fstab)
+	3. Go to root of partition for quotas and run "sudo quotacheck -amvug" for users and groups
+	4. Turn quotas on with quotaon -v <partition root> or quotaon -av for all partitions that allow quotas.  quotaoff in reverse.
+	5. repquota -av for a visual report of ongoing quotas
+	6. edquota -u <username> or edquota -g <groupname> to set quotes for each.
+
 	- User quota
 	- Group quota
 
@@ -92,8 +116,12 @@ System Operations and Maintenance
 
 2.2.7 Important Files and File Contents
 	- /etc/passwd
+		Shows all users; passwords hidden; shows home, default shell/nologin, etc.
 	- /etc/group
+		Lists all groups and info
 	- /etc/shadow
+		Shows hashed passwords, required root
+		An exclamation point in print of hash means account is locked
 
 
 2.3. Given a scenario, create, modify, and redirect files.
@@ -102,9 +130,11 @@ System Operations and Maintenance
 	- vi
 
 2.3.2 File readers
-	-grep - cat
+	- grep
+	- cat
 	- tail
-	- head -less
+	- head
+	- less
 	- more
 
 2.3.3 Output redirection
