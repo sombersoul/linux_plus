@@ -105,7 +105,7 @@ System Operations and Maintenance
 2.2.6 Profiles
 	/etc/profile, .bash_profile, .profile and .bash_login are called for login shells in that order.
 		/etc/profile.d/ is a directory for application or other startup scripts that are run when /etc/profile is called.
-	/etc/bash.bashrc and .bashrc are called for no login shells in that order.
+	/etc/bashrc and .bashrc are called for no login shells in that order.
 	- Bash parameters
 	- User entries
 	- .bashrc
@@ -115,6 +115,7 @@ System Operations and Maintenance
 	- /etc/bashrc
 	- /etc/profile.d/
 	- /etc/skel
+		Location of default dot files for new users.
 	- /etc/profile
 
 2.2.7 Important Files and File Contents
@@ -152,23 +153,48 @@ System Operations and Maintenance
 	- stdout
 	- stderr
 	- /dev/null
+		Black hole to swallow unwanted output
 	- /dev/tty
+		Controlling terminal for the current process.
 	- xargs
+		For running a single command on a list of input (normally file names), such as...
+			ls | xargs -n 1 chgrp admin
+		It accepts the stdin as the final argument, so the above executes chgrp admin <filename> on each of the files given by ls.
 	- tee
+		Puts a tee in the pipeline of stdin and stdout.  Takes input, allows output to file, and passes stdin to stdout.
+		ls | tee listing.txt | xargs -n 1 echo "File -->"
 	- Here documents
+		Reads text in place as stdin from word to word. Ex below:
+			wc -w <<EOF
+			This is a sentence.
+			Here are more lines.
+			EOF
 
 2.3.4 Text processing
 	- grep
-	-tr
+	 -tr
+		Translate, squeeze, and/or delete characters from standard input, writing to standard output.
 	- echo
 	- sort
 	- awk
 	- sed
+		Generally, sed matches an address (like a regex) and applies some command to the matched address on the incoming stream.
+		Input file can be suppled, if left off it takes stdin
+		sed "<pattern> <command>" <inputfile>
+			Find and replace format: sed "s/<regex to find>/<replacement>" <filename>
+		sed scripts can be concatenated internally with a ;
+			sed "<pattern> <command>; <pattern> <command>" <filename>
 	- cut
+		Separates stream in to selectable sections based on delimiter (default tab)
+		ls | cut -d. -f1   --> This pipes ls into cut, where it splits on delimiter . and takes field 1, the filename.
 	- printf
+		Just like fprintf from MATLAB.  prinf "Formatting this %s with a %d and a %2.3f" string 10 10
 	- egrep
+		Utilizes extended regex expressions (allows some other special characters).  grep -E is more recommended than egrep
 	- wc
 	- paste
+		Converts tab separated (or other delim) stream into new line stream
+			ls | paste
 
 2.3.5 File and directory operations
 	- touch
@@ -177,40 +203,100 @@ System Operations and Maintenance
 	- rm
 	- scp
 	- ls
+		ls -a (all)
+		ls -l (long)
+			You can see how many hard links a file has by the number after the permissions
+			[jonathan@localhost sandbox]$ ls -li fileA.txt hardlinktoA
+			1703949 -rw-rw-r--. 2 jonathan jonathan 0 Aug 26 00:08 fileA.txt
+			1703949 -rw-rw-r--. 2 jonathan jonathan 0 Aug 26 00:08 hardlinktoA
+		ls -i (inode)
 	- rsync
 	- mkdir
 	- rmdir
-	-ln
+	- ln
 		- Symbolic (soft)
+			File that points to another file.  Similar to MS shortcuts
+			Breaks if the original file is deleted, moved, renamed.
+			Creates new inode
 		- Hard
+			Creates another name for the same inode/file.
+			Survives deletion of others
 	- unlink
+		Safely removes links
 	- inodes
+			inodes store the following metadata:
+				File type: regular file, directory, pipe etc.
+				Permissions to that file: read, write, execute
+				Link count: The number of hard link relative to an inode
+				User ID: owner of file
+				Group ID: group owner
+				Size of file: or major/minor number in case of some special files
+				Time stamp: access time, modification time and (inode) change time
+				Attributes: immutable' for example
+				Access control list: permissions for special users/groups
+				Link to location of file
+				Other metadata about the file
+			Blocks, which are referenced by the inode table, are various sizes depending on the file system
+				Block Size for Ext2 can be 1Kb, 2Kb, 4Kb, 8Kb
+				Block Size for Ext3 can be 1Kb, 2Kb, 4Kb, 8Kb
+				Block Size for Ext4 can be 1Kb to 64Kb
 	- find
+		Returns full path to thing searched for based on all options given
+			find . -type f -name "*filename*"
+		This command is weird that the long forms are not --
 	- locate
+		Not on most systems by default anymore.  Similar to find.
+		Very fast search for files because it is pulling from a database (updatedb) not actually searching the filesystem
 	- grep
 	- which
 	- whereis
+		Locates all relevent files, binaries, and confs of a command
+			whereis python
+			whereis yum
 	- diff
+		A way of comparing the differences between two files.  Seems very unreadable format...
 	- updatedb
+		Database that locate uses to search from.  Automatically updated daily from cron job (/etc/cron.daily/mlocate)
 
 2.4 Given a scenario, manage services.
 2.4.1 Systemd management
 	- Systemctl
+		systemctl on its own lists running services
 		- Enabled
 		- Disabled
 		- Start
 		- Stop
 		- Mask
+			Masking makes a service unstartable
+			Find masked services with systemctl list-unit-files --type=service | grep mask
 		- Restart
 		- Status
 		- Daemon-reload
-	- Systemd-analyze blame
+			reloads systemd manager configuration
+	- systemd-analyze blame
+		Lists out how long each process in the boot took to run.  helps for boot debugging
+		systemd-analyze plot > index.html creates a cool html page to view boot steps.
 	- Unit files
+		https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files
 		- Directory locations
+			/etc/systemd/system for all unit files by default
 		- Environment parameters
+			systemctl edit <service>
+			This will create a directory in service location with a conf file where you can set something like...
+				[SERVICE]
+				environment="KEY=MYSECRETKEYSTUFF"
+				environment="USER=USERNAMEHERE"
 		- Targets
+			These are your basic system commands.  Run the below to command to list them all (like shutdown)
+			#systemctl list-units --type=target --all
 		- Hostnamectl
+			Used to query and change the hostname and its related settings
 		- Automount
+			Automounting is controlled through autofs
+			You can edit the config file /etc/auto.master to make automount locations similar to /etc/fstab but
+				these only get mounted when the service is run (systemctl start autofs.service), rather than at boot time
+				unless that service is enabled.  You can change the config file, reload the service, and the new mounts will set.
+
 
 2.4.2 SysVinit
 	- chkconfig
